@@ -14,7 +14,7 @@ const subtasksWrapper = document.getElementById("subtask-list");
 const addSubtaskBtn = document.getElementById("addSubtaskBtn");
 
 let chartInstance = null;
-const apiBase = "/api/tasks"; // Backend endpoint
+const apiBase = "/api/tasks"; // Update if backend endpoint differs
 let tasksData = [];
 
 // ------------------- MODAL CONTROLS -------------------
@@ -26,13 +26,7 @@ analysisModal.querySelector("button").onclick = () => (analysisModal.style.displ
 async function fetchTasks() {
   try {
     const res = await fetch(apiBase);
-    const data = await res.json();
-
-    // Remove duplicates by ID
-    tasksData = data.filter((task, index, self) =>
-      index === self.findIndex(t => t.id === task.id)
-    );
-
+    tasksData = await res.json();
     renderTasks(tasksData);
     updateStats(tasksData);
   } catch (err) {
@@ -43,7 +37,6 @@ async function fetchTasks() {
 // ------------------- RENDER TASKS -------------------
 function renderTasks(tasks) {
   taskList.innerHTML = "";
-
   if (!tasks || tasks.length === 0) {
     taskList.innerHTML = `<p class="empty">No tasks yet! Add one using the + button.</p>`;
     return;
@@ -70,16 +63,8 @@ function renderTasks(tasks) {
     completeBtn.className = "btn btn-sm btn-success me-2";
     completeBtn.textContent = task.completed ? "Completed" : "Mark Complete";
     completeBtn.onclick = async () => {
-      try {
-        await fetch(`${apiBase}/${task.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ completed: !task.completed })
-        });
-        fetchTasks();
-      } catch (err) {
-        console.error("Error updating task:", err);
-      }
+      await fetch(`${apiBase}/${task.id}`, { method: "PUT" });
+      fetchTasks();
     };
     btnDiv.appendChild(completeBtn);
 
@@ -89,12 +74,8 @@ function renderTasks(tasks) {
     deleteBtn.textContent = "Delete";
     deleteBtn.onclick = async () => {
       if (confirm("Are you sure you want to delete this task?")) {
-        try {
-          await fetch(`${apiBase}/${task.id}`, { method: "DELETE" });
-          fetchTasks();
-        } catch (err) {
-          console.error("Error deleting task:", err);
-        }
+        await fetch(`${apiBase}/${task.id}`, { method: "DELETE" });
+        fetchTasks();
       }
     };
     btnDiv.appendChild(deleteBtn);
@@ -158,7 +139,7 @@ addSubtaskBtn.onclick = () => {
 };
 
 // ------------------- ANALYSIS -------------------
-analyzeBtn.onclick = () => {
+analyzeBtn.onclick = async () => {
   analysisModal.style.display = "block";
 
   const highPriority = tasksData.filter(t => t.priority === "High" && t.completed).length;
