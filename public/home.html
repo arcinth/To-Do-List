@@ -1,0 +1,137 @@
+import { useState, useEffect } from "react";
+import { Header } from "@/components/Header";
+import { StatsCards } from "@/components/StatsCards";
+import { ProgressBar } from "@/components/ProgressBar";
+import { TaskControls } from "@/components/TaskControls";
+import { TaskList } from "@/components/TaskList";
+import { AddTaskModal } from "@/components/AddTaskModal";
+import { TimelineModal } from "@/components/TimelineModal";
+import { AnalyticsModal } from "@/components/AnalyticsModal";
+import { WelcomeModal } from "@/components/WelcomeModal";
+import { Task } from "@/types/task";
+
+const Index = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isTimelineOpen, setIsTimelineOpen] = useState(false);
+  const [isAnalyticsOpen, setIsAnalyticsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"priority" | "dueDate" | "">("");
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("taskflow_tasks");
+    if (stored) {
+      setTasks(JSON.parse(stored));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("taskflow_tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  const addTask = (task: Omit<Task, "id" | "completed">) => {
+    const newTask: Task = {
+      ...task,
+      id: Date.now().toString(),
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+  };
+
+  const toggleTask = (id: string) => {
+    setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+  };
+
+  const deleteTask = (id: string) => {
+    setTasks(tasks.filter(t => t.id !== id));
+  };
+
+  const deleteAllTasks = () => {
+    if (confirm("Are you sure you want to delete all tasks?")) {
+      setTasks([]);
+    }
+  };
+
+  const filteredTasks = tasks.filter(task =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const sortedTasks = [...filteredTasks].sort((a, b) => {
+    if (sortBy === "priority") {
+      const priorityOrder = { High: 0, Medium: 1, Low: 2 };
+      return priorityOrder[a.priority] - priorityOrder[b.priority];
+    }
+    if (sortBy === "dueDate" && a.dueDate && b.dueDate) {
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+    }
+    return 0;
+  });
+
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.completed).length;
+  const remainingTasks = totalTasks - completedTasks;
+  const progressPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+  return (
+    <div className="min-h-screen pb-20">
+      <Header />
+      
+      <main className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="animate-fade-in space-y-8">
+          <StatsCards 
+            totalTasks={totalTasks}
+            remainingTasks={remainingTasks}
+            completedTasks={completedTasks}
+          />
+
+          <ProgressBar percentage={progressPercentage} />
+
+          <TaskControls
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+            onAddTask={() => setIsAddModalOpen(true)}
+            onOpenTimeline={() => setIsTimelineOpen(true)}
+            onOpenAnalytics={() => setIsAnalyticsOpen(true)}
+            onDeleteAll={deleteAllTasks}
+            hasTask={tasks.length > 0}
+          />
+
+          <TaskList
+            tasks={sortedTasks}
+            onToggle={toggleTask}
+            onDelete={deleteTask}
+          />
+        </div>
+      </main>
+
+      <AddTaskModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onAdd={addTask}
+      />
+
+      <TimelineModal
+        isOpen={isTimelineOpen}
+        onClose={() => setIsTimelineOpen(false)}
+        tasks={tasks}
+      />
+
+      <AnalyticsModal
+        isOpen={isAnalyticsOpen}
+        onClose={() => setIsAnalyticsOpen(false)}
+        totalTasks={totalTasks}
+        completedTasks={completedTasks}
+      />
+
+      <WelcomeModal
+        isOpen={showWelcome}
+        onClose={() => setShowWelcome(false)}
+      />
+    </div>
+  );
+};
+
+export default Index;
