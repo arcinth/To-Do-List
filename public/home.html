@@ -1,1295 +1,1235 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8" />
-
-    <!-- <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    /> -->
     <title>To-Do List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/jpg" href="assets/images/favicon.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Montserrat:wght@500&display=swap"
-        rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- jquery CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-
-    <!-- FontAwesome CDN-->
-
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' rel='stylesheet'
-        integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' crossorigin='anonymous'>
-
-
-    <link rel="stylesheet" href="assets/css/style.css" />
-
-<!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Flatpickr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-
-  <!-- ---------- Styles (paste to your CSS file or inside <style>) ---------- -->
-
-          <style>
-        /* Container Alignment */
-        .buttons-wrapper {
-          max-width: 600px;
-          margin: 0 auto;
-          padding: 0 15px;
-        }
-
-        /* Add Task Button */
-        .myBtn {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          border: none;
-          padding: 14px 20px;
-          border-radius: 12px;
-          font-weight: 600;
-          font-size: 16px;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-          display: block;
-          width: 100%;
-        }
-
-        .myBtn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-
-        /* Timeline Button */
-        #openTimelineBtn {
-          background: transparent;
-          border: 2px solid rgba(255,255,255,0.3);
-          backdrop-filter: blur(10px);
-          color: white;
-          font-weight: 500;
-          font-size: 15px;
-          padding: 12px 20px;
-          border-radius: 12px;
-          transition: all 0.3s ease;
-          display: block;
-          width: 100%;
-        }
-
-        #openTimelineBtn:hover {
-          background: rgba(255,255,255,0.15);
-          border-color: rgba(255,255,255,0.5);
-          transform: translateY(-2px);
-        }
-
-        /* Search Input */
-        #searchInput {
-          background: rgba(255,255,255,0.9);
-          border: 2px solid #e0e0e0;
-          border-radius: 10px;
-          padding: 12px 15px 12px 45px;
-          font-size: 15px;
-          width: 100%;
-        }
-
-        #searchInput:focus {
-          outline: none;
-          border-color: #667eea;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .search-icon-custom {
-          position: absolute;
-          left: 15px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: #6c757d;
-          pointer-events: none;
-        }
-
-        /* Sort Dropdown */
-        #sortBy {
-          background: rgba(255,255,255,0.9);
-          border: 2px solid #e0e0e0;
-          border-radius: 10px;
-          padding: 12px 15px;
-          cursor: pointer;
-          font-size: 15px;
-          width: 100%;
-        }
-
-        #sortBy:focus {
-          outline: none;
-          border-color: #667eea;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .buttons-wrapper {
-            padding: 0 10px;
-          }
-          
-          .myBtn, #openTimelineBtn {
-            font-size: 14px;
-            padding: 12px 16px;
-          }
-
-          #searchInput, #sortBy {
-            font-size: 14px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .myBtn, #openTimelineBtn {
-            font-size: 13px;
-            padding: 10px 14px;
-          }
-        }
-
-        /* Prevent text overflow */
-        .myBtn, #openTimelineBtn, #searchInput, #sortBy {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        /* Remove any default margins/padding */
-        .button-div, .search-container, .sort-container {
-          margin-left: 0;
-          margin-right: 0;
-          padding-left: 0;
-          padding-right: 0;
-        }
-      </style>
-<style>
-  .subtasks {
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-  }
-  .subtask-row {
-    background: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 6px;
-    padding: 8px;
-  }
-  /* small responsive tweaks */
-  @media (max-width: 900px) {
-    .subtask-row .col-md-5, .subtask-row .col-md-3, .subtask-row .col-md-2 { flex: 1 1 100%; max-width: 100%; }
-  }
-</style>
-
-<style>
-
-          /* Responsive Button Styling */
-        .buttons-wrapper {
-          max-width: 600px;
-          margin: 0 auto;
-          padding: 0 15px;
-        }
-
-        .myBtn {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          border: none;
-          padding: 14px 20px;
-          border-radius: 12px;
-          font-weight: 600;
-          font-size: 16px;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .myBtn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-        }
-
-        #openTimelineBtn {
-          font-weight: 500;
-          font-size: 15px;
-          transition: all 0.3s ease;
-        }
-
-        #openTimelineBtn:hover {
-          background: rgba(255,255,255,0.15);
-          border-color: rgba(255,255,255,0.5);
-          transform: translateY(-2px);
-        }
-
-        #searchInput:focus, #sortBy:focus {
-          outline: none;
-          border-color: #667eea;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-          .buttons-wrapper {
-            padding: 0 10px;
-          }
-          
-          .myBtn, #openTimelineBtn {
-            font-size: 14px;
-            padding: 12px 16px;
-          }
-
-          #searchInput, #sortBy {
-            font-size: 14px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .myBtn, #openTimelineBtn {
-            font-size: 13px;
-            padding: 10px 14px;
-          }
-        }
-
-        /* Prevent text overflow */
-        .myBtn, #openTimelineBtn, #searchInput, #sortBy {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-    /* Visual tweaks for calendar badges & legend */
-    .flatpickr-calendar { box-shadow: 0 6px 20px rgba(0,0,0,0.08); border-radius: 8px; }
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     
-    /* Make the day cells have colored backgrounds */
-    .flatpickr-day.badge-start { 
-      background: #7e00b5 !important; 
-      color: white !important; 
-      border-radius: 50% !important;
-      font-weight: bold !important;
-    }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
-    .flatpickr-day.badge-due { 
-      background: #198754 !important; 
-      color: white !important; 
-      border-radius: 50% !important;
-      font-weight: bold !important;
-    }
-    
-    .flatpickr-day.reminder-highlight { 
-  background: #ffc107 !important; 
-  color: black !important; 
-  border-radius: 50% !important;
-  font-weight: bold !important;
-    }
+    <style>
+      :root {
+        --bg-body: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --bg-card: #ffffff;
+        --bg-header: rgba(255, 255, 255, 0.95);
+        --bg-input: #f8f9fa;
+        --text-primary: #2d3748;
+        --text-secondary: #718096;
+        --border-color: #e2e8f0;
+        --primary-accent: #667eea;
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        
+        --priority-high: #ef4444;
+        --priority-medium: #f59e0b;
+        --priority-low: #3b82f6;
+      }
 
-    .flatpickr-calendar {
-  pointer-events: none !important;
-  user-select: none !important;
-}
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-.flatpickr-day {
-  cursor: default !important;
-  pointer-events: none !important;
-}
+      body {
+        background: var(--bg-body);
+        color: var(--text-primary);
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        min-height: 100vh;
+      }
+      
+      h1, h2, h3, h4, h5 {
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+      }
 
-    /* subtle range shading (in addition to the built-in selected styles) */
-    .flatpickr-day.in-range-custom { 
-      background: rgba(13,110,253,0.12) !important; 
-      color: inherit !important; 
-    }
+      /* Header */
+      header {
+        background: var(--bg-header);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 15px 0;
+      }
+      
+      header .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      header h1 {
+        font-size: 1.75rem;
+        margin: 0;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-    /* Notice text */
-    #calendarNotice { color: #6c757d; font-size: 0.95rem; margin-bottom: 0.75rem; }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+      }
 
-    /* Legend */
-    .timeline-legend .badge { margin-right: 8px; }
+      /* Main Container */
+      .app-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
 
-    /* Center the calendar */
-    #calendar { display: flex; justify-content: center; }
+      /* Clock */
+      .Clock {
+        background: var(--bg-card);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      
+      #time {
+        font-size: 3rem;
+        font-weight: 700;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+      }
+      
+      .week {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-secondary);
+        font-size: 1rem;
+      }
 
-    /* Center modal content */
-    #timelineModal .modal-body { text-align: center; }
+      /* Stats */
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .stat-card {
+        background: var(--bg-card);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+      }
+      
+      .stat-card h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .stat-card h5 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: var(--text-primary);
+      }
+      
+      .stat-card p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
 
-    /* Current date as circular outline */
-    .flatpickr-day.today {
-      background: transparent !important;
-      border: 2px solid #007bff !important;
-      color: #007bff !important;
-      font-weight: bold !important;
-    }
-</style>
+      /* Progress */
+      .progress-wrapper {
+        background: var(--bg-card);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+        margin-bottom: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      
+      .progress {
+        height: 1.2rem !important;
+        border-radius: 10px;
+        background-color: #e9ecef;
+        overflow: hidden;
+      }
+      
+      .progress-bar {
+        background: var(--primary-gradient);
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: width 0.6s ease;
+      }
 
+      /* Controls */
+      .controls-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      
+      .btn-primary-gradient {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+      }
+      
+      .btn-primary-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-xl);
+      }
+      
+      .btn-outline-secondary {
+        background: var(--bg-card);
+        border: 2px solid var(--border-color);
+        color: var(--text-primary);
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .btn-outline-secondary:hover {
+        background: #f8f9fa;
+        border-color: var(--primary-accent);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      
+      /* Forms */
+      .form-control, .form-select {
+        background-color: var(--bg-input) !important;
+        color: var(--text-primary) !important;
+        border: 2px solid var(--border-color) !important;
+        border-radius: 12px;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+      
+      .form-control:focus, .form-select:focus {
+        border-color: var(--primary-accent) !important;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+        background-color: #fff !important;
+      }
+
+      .search-container { 
+        position: relative; 
+      }
+      
+      .search-icon-custom {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+        pointer-events: none;
+      }
+      
+      #searchInput {
+        padding-left: 50px !important;
+      }
+
+      /* Modals */
+      .modal-content {
+        background: var(--bg-card);
+        border: none;
+        border-radius: 20px;
+        box-shadow: var(--shadow-xl);
+      }
+      
+      .modal-header {
+        border-bottom: 1px solid var(--border-color);
+        padding: 24px;
+      }
+      
+      .modal-body {
+        padding: 24px;
+      }
+      
+      .modal-body label {
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      /* Tasks */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .todo-list {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .todo {
+        display: flex;
+        align-items: stretch;
+        background: var(--bg-card);
+        border-radius: 16px;
+        margin-bottom: 16px;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        animation: fadeIn 0.5s ease;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      
+      .todo:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
+      }
+      
+      .todo-item {
+        flex-grow: 1;
+        list-style: none;
+        padding: 0;
+      }
+      
+      .task-content {
+        padding: 24px;
+      }
+      
+      .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+      
+      .task-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-primary);
+      }
+      
+      .badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 8px;
+      }
+      
+      .high-priority { background: var(--priority-high) !important; color: #fff; }
+      .medium-priority { background: var(--priority-medium) !important; color: #fff; }
+      .low-priority { background: var(--priority-low) !important; color: #fff; }
+      
+      .task-dates {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+      }
+      
+      .subtasks-section {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
+      }
+      
+      .subtasks-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .subtask-item {
+        color: var(--text-secondary);
+        padding: 8px 0;
+        font-size: 0.9rem;
+      }
+      
+      .subtask-item.completed {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+      
+      .notes-section {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
+      }
+      
+      .notes-section summary {
+        cursor: pointer;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+      
+      .notes-text {
+        margin-top: 12px;
+        padding: 16px;
+        background: var(--bg-input);
+        border-radius: 12px;
+        color: var(--text-secondary);
+      }
+      
+      .complete-btn, .trash-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        padding: 0 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        min-width: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .complete-btn:hover {
+        background: #d1fae5;
+        color: #059669;
+      }
+      
+      .trash-btn:hover {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+      
+      .todo.completed {
+        opacity: 0.7;
+        background: #f9fafb;
+      }
+      
+      .todo.completed .task-title {
+        text-decoration: line-through;
+      }
+
+      /* Empty State */
+      #emptyMessage {
+        text-align: center;
+        padding: 60px 20px;
+        background: var(--bg-card);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+      }
+      
+      #emptyMessage h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+      }
+      
+      #emptyMessage p {
+        color: var(--text-secondary);
+        font-size: 1rem;
+      }
+
+      /* Delete All Button */
+      .delete-all {
+        background: var(--bg-card);
+        border: 2px solid var(--priority-high);
+        color: var(--priority-high);
+        padding: 14px 28px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        margin: 30px auto;
+        display: block;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+      }
+      
+      .delete-all:hover {
+        background: var(--priority-high);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      /* Scroll to Top */
+      #scrollTop {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: none;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      
+      #scrollTop:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
+      }
+
+      /* Welcome Modal */
+      .welcome-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      
+      .welcome-content {
+        background: var(--bg-card);
+        padding: 50px;
+        border-radius: 24px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: var(--shadow-xl);
+        animation: fadeIn 0.5s ease;
+      }
+      
+      .welcome-content h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      
+      .welcome-content p {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      /* Subtasks Wrapper */
+      .subtasks {
+        background: var(--bg-input);
+        border: 2px solid var(--border-color);
+        border-radius: 16px;
+        padding: 20px;
+      }
+      
+      .subtask-row {
+        background: white;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .stats-container {
+          grid-template-columns: 1fr;
+        }
+        
+        .controls-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        #time {
+          font-size: 2rem;
+        }
+        
+        .stat-card h1 {
+          font-size: 2.5rem;
+        }
+        
+        header h1 {
+          font-size: 1.5rem;
+        }
+      }
+
+      /* Flatpickr Custom Styles */
+      .flatpickr-calendar {
+        background: var(--bg-card) !important;
+        border: none !important;
+        box-shadow: var(--shadow-xl) !important;
+        border-radius: 16px !important;
+      }
+      
+      .flatpickr-day.selected {
+        background: var(--primary-gradient) !important;
+        border-color: transparent !important;
+      }
+      
+      .flatpickr-day:hover {
+        background: var(--primary-accent) !important;
+        color: white !important;
+      }
+
+      /* Timeline Highlights */
+      .badge-start {
+        background: #7e00b5 !important;
+        color: white !important;
+        font-weight: bold !important;
+      }
+      
+      .badge-due {
+        background: #059669 !important;
+        color: white !important;
+        font-weight: bold !important;
+      }
+      
+      .reminder-highlight {
+        background: #fbbf24 !important;
+        color: #000 !important;
+        font-weight: bold !important;
+      }
+      
+      .in-range-custom {
+        background: rgba(102, 126, 234, 0.2) !important;
+      }
+
+      /* Analysis Modal */
+      #analysisModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+      
+      #analysisModal > div {
+        background: var(--bg-card);
+        padding: 30px;
+        border-radius: 20px;
+        max-width: 700px;
+        width: 90%;
+        box-shadow: var(--shadow-xl);
+      }
+    </style>
 </head>
 
 <body>
- <!-- Welcome Modal -->
-<div id="welcomeModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
-  <div style="background: linear-gradient(135deg, #005eff, #c9c9cb); padding:40px; border-radius:20px; text-align:center; max-width:450px; width:90%; box-shadow:0 8px 30px rgba(0,0,0,0.3); font-family: 'Baloo Bhai 2', cursive; color:#fff;">
-    <h2 style="margin-bottom:20px; font-size:26px;">Hello 👋 <span id="userName">User</span>!</h2>
-    <p style="margin-bottom:25px; font-size:20px; line-height:1.5;">
-      Get ready to organize your tasks, set priorities, and stay on top of your day. Let’s make today productive and fun!
-    </p>
-    <button id="closeWelcome" style="padding:12px 30px; border:none; background:#ffdd59; color:#000; border-radius:10px; cursor:pointer; font-size:16px; font-weight:bold; transition:0.3s;">
-      Let’s Go!
-    </button>
-  </div>
-</div>
-
-    <!-- Confirmation dialog -->
-    <div id="custom-confirm" class="custom-confirm">
-      <div class="confirm-content">
-        <div class="optbox_header">
-          <i id="confirm-cancel" class="fas fa-times close-button"></i>
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="welcome-modal">
+        <div class="welcome-content">
+            <h2>👋 Hello, <span id="userName">User</span>!</h2>
+            <p>Get ready to organize your tasks, set priorities, and stay on top of your day. Let's make today productive!</p>
+            <button id="closeWelcome" class="btn-primary-gradient">Let's Go!</button>
         </div>
-        <h2>Confirmation</h2>
-        <h4 id="confirm-msg">Are you sure you want to delete this task?</h4>
-        <div class="option_box">
-        <button class="btn btn-success mt-5 col-3"id="confirm-yes">Yes</button>
-        <button class="btn btn-danger mt-5 col-3" id="confirm-no">No</button>
-        </div>
-      </div>
     </div>
+
+    <!-- Header -->
     <header>
-    <div class="navbar">
-        <a href="index.html"><img src="assets/images/logo.png" alt="logo" width="120px"></a>
-
-        <a href="#">
-            <div class="header" data-aos="zoom-in"><b>
-                    <h1>To-Do List</h1>
-                </b></div>
-        </a>
-
-        <a href="#">
-            <div class="col-auto">
-                <input type="checkbox" id="light" class="checkbox" onclick="switchToDarkMode()">
-                <label for="checkbox" class="label">
-                    <i class="fas fa-sun"></i>
-                    <i class='fas fa-moon'></i>
-                    <div class='ball'>
-                </label>
-            </div>
-        </a>
-
-        <!-- 🚀 Solid Logout Button -->
-        <a href="#" onclick="logout()" class="btn btn-primary" 
-           style="margin-right:100px; padding:8px 18px; border-radius:8px; font-weight:600;">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-    </div>
-</header>
-
-
-    <div class="modal red" id="Modal">
-        <div class="content" id="content">
-            <span id="modal-text font-bold"> Some Text </span>
-            <button onclick="closemodal()" class="modal-btn">
-                <i class="fas fa-times"></i>
+        <div class="navbar">
+            <a href="#" class="logo">✓ TaskMaster</a>
+            <h1>To-Do List</h1>
+            <button onclick="logout()" class="btn-primary-gradient" style="padding: 10px 20px;">
+                <i class="fas fa-sign-out-alt"></i> Logout
             </button>
         </div>
-    </div>
+    </header>
 
-    <!-- 📊 Productivity Button -->
-<button id="analysisBtn" onclick="openAnalysisModal()">📊 Productivity</button>
-
-  
-    
-  </button>
-</div>
-
-  <!-- TIMELINE MODAL -->
-<div class="modal fade" id="timelineModal" tabindex="-1" aria-labelledby="timelineLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-primary" id="timelineLabel">Visual Timeline</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <!-- tiny notice / validation message -->
-          <div id="calendarNotice">Loading tasks...</div>
-
-          <!-- Legend -->
-          <div class="timeline-legend mb-2">
-            <span class="badge" style="background:#7e00b5">Start (purple)</span>
-            <span class="badge bg-success">Due (green)</span>
-            <span class="badge" style="background:#ffc107;color:#000">Reminder (yellow)</span>
-          </div>
-
-          <!-- calendar container -->
-          <div id="calendar" class="mb-3"></div>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!-- Clock Modification -->
-    <div class="Clock" data-aos="flip-left"
-    data-aos-easing="ease-out-cubic"
-    data-aos-duration="2000">
-        <div id="time" data-aos="flip-left"
-        data-aos-easing="ease-out-cubic"
-        data-aos-duration="2000"></div>
-        <div class="week">
-            <div id="day"></div>
-            <div id="date"></div>
-        </div>
-    </div>
-
-    <section class="pt-3 pb-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-9 mx-auto py-3">
-              <div class="row">
-                <div class="col-md-4 position-relative">
-                  <div class="p-3 text-center">
-                    <h1 class="text-gradient text-white"><span id="state1">0</span></h1>
-                    <h5 class="mt-3 text-white font-bold ">Total Tasks</h5>
-                    <p class="text-sm font-weight-normal text-white ">Number of tasks you have created</p>
-                  </div>
-                  <hr class="vertical dark">
-                </div>
-                <div class="col-md-4 position-relative">
-                  <div class="p-3 text-center">
-                    <h1 class="text-gradient text-white"> <span id="state2">0</span></h1>
-                    <h5 class="mt-3 text-white font-bold">Remaining To Do</h5>
-                    <p class="text-sm font-weight-normal text-white">Tasks remaining to complete.</p>
-                  </div>
-                  <hr class="vertical dark">
-                </div>
-                <div class="col-md-4">
-                  <div class="p-3 text-center">
-                    <h1 class="text-gradient text-white" id="state3">0</h1>
-                    <h5 class="mt-3 text-white">Completed Tasks</h5>
-                    <p class="text-sm font-weight-normal text-white font-bold">Total Number of tasks completed</p>
-                  </div>
-                  <hr class="vertical dark">
-                </div>
-              </div>
+    <!-- Main App -->
+    <main class="app-container">
+        <!-- Clock -->
+        <div class="Clock">
+            <div id="time"></div>
+            <div class="week">
+                <div id="day"></div>
+                <span>•</span>
+                <div id="date"></div>
             </div>
-          </div>
         </div>
-      </section>
 
-      <script>
-// filepath: c:\Users\Kennice Gonsalves\OneDrive\Desktop\To-Do-List\To-Do-List\home.html
-function updateClock() {
-  const now = new Date();
-  // Format time as HH:MM:SS
-  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  // Format date as DD MMM YYYY
-  const date = now.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
-  // Get weekday name
-  const day = now.toLocaleDateString([], { weekday: 'long' });
+        <!-- Stats -->
+        <section class="stats-container">
+            <div class="stat-card">
+                <h1><span id="state1">0</span></h1>
+                <h5>Total Tasks</h5>
+                <p>All tasks you have created</p>
+            </div>
+            <div class="stat-card">
+                <h1><span id="state2">0</span></h1>
+                <h5>Remaining To Do</h5>
+                <p>Tasks remaining to complete</p>
+            </div>
+            <div class="stat-card">
+                <h1><span id="state3">0</span></h1>
+                <h5>Completed Tasks</h5>
+                <p>Total tasks completed</p>
+            </div>
+        </section>
 
-  document.getElementById('time').textContent = time;
-  document.getElementById('date').textContent = date;
-  document.getElementById('day').textContent = day;
-}
+        <!-- Progress -->
+        <div class="progress-wrapper">
+            <h5 class="text-center mb-3">Overall Progress</h5>
+            <div class="progress">
+                <div id="taskProgressBar" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+            </div>
+        </div>
 
-// Initial call and update every second
-updateClock();
-setInterval(updateClock, 1000);
-</script>
-
-<!-- 📊 Progress Bar Section -->
-<div class="container my-4">
-  <h5 class="text-center text-white">Overall Progress</h5>
-  <div class="progress" style="height: 25px; border-radius: 12px; overflow: hidden;">
-    <div id="taskProgressBar" 
-         class="progress-bar bg-success" 
-         role="progressbar" 
-         style="width: 0%;" 
-         aria-valuenow="0" 
-         aria-valuemin="0" 
-         aria-valuemax="100">
-      0%
-    </div>
-  </div>
-</div>
-
-<div class="buttons-wrapper mt-0">
-
-  <!-- Add Task Button -->
-<div class="button-div mb-3">
-  <button type="button" id="myBtn" class="myBtn w-100 py-2" data-bs-toggle="modal" data-bs-target="#taskModal">
-    <i class="fas fa-plus-circle me-2"></i>Add a new task
-  </button>
-</div>
-
-  <!-- Timeline Button -->
-  <div class="mb-3">
-    <button id="openTimelineBtn" class="btn btn-outline-light w-100 py-2" 
-            data-bs-toggle="modal" data-bs-target="#timelineModal">
-      <i class="far fa-calendar-alt me-2"></i>View Visual Timeline
-    </button>
-  </div>
-
-  <!-- Search Bar -->
-  <div class="search-container mb-3" 
-       style="position: relative; width: 100%;">
-    <input type="text" id="searchInput" 
-           class="form-control ps-5" 
-           placeholder="Search tasks..." 
-           oninput="searchTasks()" 
-           style="padding: 14px 14px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box;">
-    <i class="fa fa-search search-icon-custom" 
-       style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #888;"></i>
-  </div>
-
-  <!-- Sort Dropdown -->
-  <div class="sort-container mb-3" 
-       style="width: 100%;">
-    <select id="sortBy" class="form-select" onchange="sortTasks()" 
-            style="padding: 14px 14px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc; width: 100%; box-sizing: border-box;">
-      <option value="">📊 Sort By...</option>
-      <option value="priority">🔥 Priority</option>
-      <option value="dueDate">📅 Due Date</option>
-    </select>
-  </div>
-
-  <ul id="taskList"></ul>
-
-</div>
-
-
-<!-- 📊 Productivity / Analysis Modal -->
-<div id="analysisModal" class="modal" 
-     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-            background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:2000;">
-  <div style="background:white; padding:20px; border-radius:15px; max-width:700px; width:90%; 
-              box-shadow:0 8px 30px rgba(0,0,0,0.3);">
-    
-    <!-- Modal Title -->
-   <h2 class="text-center" style="margin-bottom:10px; color:black;">
-    📊 Productivity Analysis
-   </h2>
-    
-    <!-- Productivity Score -->
-    <p id="productivityScore" 
-       style="text-align:center; font-size:18px; font-weight:bold; margin-bottom:15px; color:#2c3e50;">
-    </p>
-
-    <!-- Chart -->
-    <div style="height:300px;">
-      <canvas id="productivityChart"></canvas>
-    </div>
-
-    <!-- Close Button -->
-    <button onclick="closeAnalysisModal()" 
-            style="margin-top:15px; background:#ff4757; color:white; border:none; 
-                   padding:8px 16px; border-radius:6px; cursor:pointer;">Close</button>
-  </div>
-</div>
-
-<!-- ---------- Modal (Add Task with Deadline & Reminder) ---------- -->
-<!-- CORRECT -->
-<div class="modal" id="taskModal" tabindex="-1">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="text-primary"><strong>Add a new Task</strong></h5>
-        <button type="button" class="btn-close" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body ">
-        <form id="taskForm" class="row g-3">
-
-          <div class="col-md-6">
-            <label for="taskTitle" class="form-label text-primary ms-3">Task Title</label>
-            <input id="taskTitle" name="taskTitle" type="text" class="form-control" placeholder="Add a new Task.." required>
-          </div>
-
-          <div class="col-md-3">
-            <label for="priorityInput" class="form-label text-primary ms-3">Priority</label>
-            <select id="priorityInput" name="priority" class="form-select">
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+        <!-- Controls -->
+        <div class="controls-grid">
+            <button type="button" class="btn-primary-gradient" data-bs-toggle="modal" data-bs-target="#taskModal">
+                <i class="fas fa-plus-circle me-2"></i>Add New Task
+            </button>
+            <button class="btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#timelineModal">
+                <i class="far fa-calendar-alt me-2"></i>Visual Timeline
+            </button>
+            <div class="search-container">
+                <i class="fa fa-search search-icon-custom"></i>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search tasks..." oninput="searchTasks()">
+            </div>
+            <select id="sortBy" class="form-select" onchange="sortTasks()">
+                <option value="">📊 Sort By...</option>
+                <option value="priority">🔥 Priority</option>
+                <option value="dueDate">📅 Due Date</option>
             </select>
-          </div>
+        </div>
 
-          <div class="col-md-3">
-            <label for="stageSelect" class="form-label text-primary ms-3">Task Stage</label>
-            <select id="stageSelect" name="stage" class="form-select">
-              <option value="pending">Pending</option>
-              <option value="in-progress">In Progress</option>
-              <option value="partially-completed">Partially Completed</option>
-            </select>
-          </div>
+        <!-- Empty State -->
+        <div id="emptyMessage" style="display: block;">
+            <h3>📝 Your List is Empty!</h3>
+            <p>Click "Add New Task" to get started on your productivity journey.</p>
+        </div>
 
-          <div class="row g-3 align-items-start">
-            <div class="col-md-4">
-              <label for="startDate" class="form-label text-primary ms-3">Start Date</label>
-              <input id="startDate" name="startDate" type="date" class="form-control">
-            </div>
-          
-            <div class="col-md-4">
-              <label for="dueDate" class="form-label text-primary ms-3">Due Date</label>
-              <input id="dueDate" name="dueDate" type="date" class="form-control">
-            </div>
-          
-            <div class="col-md-4">
-              <label for="deadlineTime" class="form-label text-primary ms-3">Deadline & Reminder</label>
-              <input id="deadlineTime" name="deadlineTime" type="datetime-local" class="form-control">
-              <small class="text-muted mt-1 ms-1 d-block">You will get a browser notification at this time.</small>
-            </div>
-          </div>
+        <!-- Task List -->
+        <div class="todo-container">
+            <ul class="todo-list"></ul>
+        </div>
 
-          <div class="col-12">
-            <label for="taskNotes" class="form-label text-primary ms-3">Notes</label>
-            <textarea id="taskNotes" name="taskNotes" class="form-control" rows="3" placeholder="Add any additional notes or details for this task..."></textarea>
-          </div>
+        <!-- Delete All -->
+        <button class="delete-all" onclick="deleteAllTasks()">
+            <i class="fas fa-trash-alt me-2"></i>Delete All Tasks
+        </button>
+    </main>
 
-          <div class="col-12">
-            <div id="subtasksWrapper" class="subtasks p-3">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5><strong class="text-primary">Subtasks</strong></h5>
-                <button id="addSubtaskBtn" type="button" class="btn btn-sm btn-outline-primary">+ Add Subtask</button>
-              </div>
-              <div id="subtask-list" class="d-flex flex-column gap-2"></div>
-            </div>
-          </div>
-
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-success">Add Task</button>
-          </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-    <div id="emptyMessage" style="color: whitesmoke; font-size: xx-small" class="no-to-do-item">
-        <h1>THE LIST IS EMPTY !</h1>
-    </div>
-    <div class="todo-container">
-        <ul class="todo-list"></ul>
-    </div>
-    <button class="delete-all" onclick="show_alert()">Delete All Tasks</button>
-
-    <!-- <div cla ss="confirmation_box"></div> -->
-
-
-    <div class="confirmation_box hide " id="confirmation_box">
-        <div class="confirmation_box_inner">
-            <div class="optbox_header">
-                <i class="fas fa-times" onclick="goback()"></i>
-            </div>
-            <p id="text-modal" style="color: black;">Are you sure you want to delete all tasks?</p>.
-            <div class="option_box">
-                <button class="proceed btn btn-success mt-5 col-3" id="txt-color" onclick="deleteAll();">Yes</button>
-                <button class="donot_proceed btn btn-danger mt-5 col-3" id="txt-color1" onclick="goback()">No</button>
+    <!-- Task Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5><strong>Add a New Task</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="taskForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label for="taskTitle" class="form-label">Task Title</label>
+                            <input id="taskTitle" type="text" class="form-control" placeholder="Enter task title..." required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="priorityInput" class="form-label">Priority</label>
+                            <select id="priorityInput" class="form-select">
+                                <option value="High">High</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="stageSelect" class="form-label">Task Stage</label>
+                            <select id="stageSelect" class="form-select">
+                                <option value="pending" selected>Pending</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="partially-completed">Partially Completed</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input id="startDate" type="date" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="dueDate" class="form-label">Due Date</label>
+                            <input id="dueDate" type="date" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="deadlineTime" class="form-label">Reminder</label>
+                            <input id="deadlineTime" type="datetime-local" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label for="taskNotes" class="form-label">Notes</label>
+                            <textarea id="taskNotes" class="form-control" rows="3" placeholder="Add any additional notes..."></textarea>
+                        </div>
+                        <div class="col-12">
+                            <div class="subtasks">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="mb-0"><strong>Subtasks</strong></h5>
+                                    <button id="addSubtaskBtn" type="button" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-plus me-1"></i>Add Subtask
+                                    </button>
+                                </div>
+                                <div id="subtask-list"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-check me-2"></i>Add Task
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- footer -->
-    <footer>
-        <div class = "footer">
-            <div class="social-media">
-                <!-- instagram -->
-                <a class="link" href="" target="_blank" rel="noopener noreferrer"><img
-                        class="social-icon" src="assets/images/instagram.svg" alt="instagram" /></a>
-                <!-- linkedin -->
-                <a class="link" href="" target="_blank"
-                    rel="noopener noreferrer"><img class="social-icon" src="assets/images/new-linkedIn.svg"
-                        alt="linkedin" /></a>
-                <!-- gmail -->
-                <a class="link" href="mailto: arcinth03@gmail.com" target="_blank" rel="noopener noreferrer"><img
-                        class="social-icon" src="assets/images/gmail.svg" alt="gmail" /></a>
-                <!-- github -->
-                <a class="link" href="" target="_blank" rel="noopener noreferrer"><img
-                        class="social-icon" src="assets/images/github.svg" alt="Github" /></a>
-
-            </div>
-            <div class="2ndrow-foter">
-
-            </div>
-            <div class="3rd-row-footer footer-creator-label footerclasses">
-                
+    <!-- Timeline Modal -->
+    <div class="modal fade" id="timelineModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5><strong>Visual Timeline</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="calendarNotice" class="text-center mb-3">Loading tasks...</div>
+                    <div class="timeline-legend mb-3 d-flex gap-2 justify-content-center">
+                        <span class="badge" style="background:#7e00b5;">Start</span>
+                        <span class="badge bg-success">Due</span>
+                        <span class="badge" style="background:#fbbf24;color:#000;">Reminder</span>
+                    </div>
+                    <div id="calendar"></div>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="assets/js/app.js"></script>
+    <!-- Analysis Modal -->
+    <div id="analysisModal">
+        <div>
+            <h2 class="text-center mb-3">📊 Productivity Analysis</h2>
+            <p id="productivityScore" class="text-center" style="font-size:1.2rem; font-weight:600;"></p>
+            <div style="height:300px;">
+                <canvas id="productivityChart"></canvas>
+            </div>
+            <button onclick="closeAnalysisModal()" class="btn btn-danger mt-3">Close</button>
+        </div>
+    </div>
 
-    <button onclick="scrollWindow()" id="scrollTop" title="Go to top">&uArr;</button>
+    <!-- Scroll to Top -->
+    <button onclick="scrollWindow()" id="scrollTop" title="Go to top">↑</button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
-        let scrollBtn = document.getElementById("scrollTop");
+        // Logout Function
+        function logout() {
+            if (confirm("Are you sure you want to logout?")) {
+                alert("You have been logged out successfully!");
+                window.location.href = "login.html";
+            }
+        }
 
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () { scrollFunction() };
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const date = now.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
+            const day = now.toLocaleDateString([], { weekday: 'long' });
+            document.getElementById('time').textContent = time;
+            document.getElementById('date').textContent = date;
+            document.getElementById('day').textContent = day;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
 
-        function scrollFunction() {
+        // Welcome Modal
+        window.onload = function() {
+            const modal = document.getElementById("welcomeModal");
+            const closeBtn = document.getElementById("closeWelcome");
+            const username = "User";
+            document.getElementById("userName").textContent = username;
+            modal.style.display = "flex";
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            };
+        };
+
+        // Scroll to Top
+        const scrollBtn = document.getElementById("scrollTop");
+        window.onscroll = function() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 scrollBtn.style.display = "block";
             } else {
                 scrollBtn.style.display = "none";
             }
+        };
+        
+        function scrollWindow() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
-        const scrollWindow = function () {
-            if (window.scrollY != 0) {
-                setTimeout(function () {
-                    window.scrollTo(0, window.scrollY - 50);
-                    window.scroll({ top: 0, behavior: "smooth" })
-                    scrollWindow();
-                }, 10);
-            }
-        }
-    </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-  const startDateInput = document.getElementById("startDate");
-  const dueDateInput = document.getElementById("dueDate");
-  const taskForm = document.getElementById("taskForm");
-
-  function validateDates() {
-    const startDate = startDateInput.value;
-    const dueDate = dueDateInput.value;
-
-    if (startDate && dueDate) {
-      if (dueDate < startDate) {
-        dueDateInput.setCustomValidity("Due date cannot be before start date.");
-      } else if (startDate > dueDate) {
-        startDateInput.setCustomValidity("Start date cannot be after due date.");
-      } else {
-        startDateInput.setCustomValidity("");
-        dueDateInput.setCustomValidity("");
-      }
-    } else {
-      startDateInput.setCustomValidity("");
-      dueDateInput.setCustomValidity("");
-    }
-  }
-
-  startDateInput.addEventListener("change", validateDates);
-  dueDateInput.addEventListener("change", validateDates);
-  taskForm.addEventListener("submit", function(e) {
-    validateDates();
-    if (!taskForm.checkValidity()) {
-      e.preventDefault();
-      taskForm.reportValidity();
-    }
-  });
-});
-    </script>
-
-    <script>
-        // Function to search tasks
+        // Search Tasks
         function searchTasks() {
             const searchInput = document.getElementById("searchInput").value.toLowerCase();
             const tasks = document.querySelectorAll(".todo");
-            
             tasks.forEach(function(task) {
-                const taskText = task.querySelector("li").innerText.toLowerCase();
+                const taskText = task.querySelector(".task-title").innerText.toLowerCase();
                 if (taskText.includes(searchInput)) {
-                    task.style.display = "flex"; // Display matching tasks
+                    task.style.display = "flex";
                 } else {
-                    task.style.display = "none"; // Hide non-matching tasks
+                    task.style.display = "none";
                 }
             });
         }
+
+        // Sort Tasks
+        function sortTasks() {
+            const sortValue = document.getElementById('sortBy').value;
+            const todoList = document.querySelector('.todo-list');
+            let tasks = Array.from(todoList.querySelectorAll('.todo'));
+            
+            let sortedTasks = tasks.sort((a, b) => {
+                if (sortValue === 'priority') {
+                    const order = { 'high': 1, 'medium': 2, 'low': 3 };
+                    return order[a.dataset.priority] - order[b.dataset.priority];
+                }
+                if (sortValue === 'dueDate') {
+                    return new Date(a.dataset.dueDate) - new Date(b.dataset.dueDate);
+                }
+                return 0;
+            });
+
+            sortedTasks.forEach(task => todoList.appendChild(task));
+        }
+
+        // Delete All Tasks
+        function deleteAllTasks() {
+            if (confirm("Are you sure you want to delete all tasks? This action cannot be undone!")) {
+                const todoList = document.querySelector('.todo-list');
+                todoList.innerHTML = '';
+                tasksData = [];
+                updateStats();
+                alert("All tasks have been deleted!");
+            }
+        }
+
+        // Analysis Modal
+        function openAnalysisModal() {
+            document.getElementById("analysisModal").style.display = "flex";
+            const totalTasks = document.querySelectorAll(".todo").length;
+            const completedTasks = document.querySelectorAll(".todo.completed").length;
+            const remainingTasks = totalTasks - completedTasks;
+            const productivity = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            document.getElementById("productivityScore").innerText = `Productivity Score: ${productivity}%`;
+            
+            if (window.productivityChartInstance) {
+                window.productivityChartInstance.destroy();
+            }
+            
+            const ctx = document.getElementById("productivityChart").getContext("2d");
+            window.productivityChartInstance = new Chart(ctx, {
+                type: "doughnut",
+                data: {
+                    labels: ["Completed", "Remaining"],
+                    datasets: [{
+                        data: [completedTasks, remainingTasks],
+                        backgroundColor: ["#059669", "#ef4444"],
+                        borderWidth: 0
+                    }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'bottom'
+                        } 
+                    }
+                }
+            });
+        }
+        
+        function closeAnalysisModal() {
+            document.getElementById("analysisModal").style.display = "none";
+        }
+
+        // Main App Logic
+        let tasksData = [];
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const taskForm = document.getElementById("taskForm");
+            const todoList = document.querySelector(".todo-list");
+            const addSubtaskBtn = document.getElementById("addSubtaskBtn");
+            const subtaskList = document.getElementById("subtask-list");
+            const state1 = document.getElementById("state1");
+            const state2 = document.getElementById("state2");
+            const state3 = document.getElementById("state3");
+            const emptyMessage = document.getElementById("emptyMessage");
+            
+            const storageKey = "tasks_demo";
+
+            // Make updateStats global so deleteAllTasks can access it
+            window.updateStats = function() {
+                const total = document.querySelectorAll(".todo").length;
+                const completed = document.querySelectorAll(".todo.completed").length;
+                state1.textContent = total;
+                state2.textContent = total - completed;
+                state3.textContent = completed;
+                emptyMessage.style.display = total === 0 ? "block" : "none";
+                updateProgressBar();
+            }
+
+            function updateProgressBar() {
+                const total = parseInt(state1.textContent) || 0;
+                const completed = parseInt(state3.textContent) || 0;
+                const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                const progressBar = document.getElementById("taskProgressBar");
+                progressBar.style.width = percentage + "%";
+                progressBar.textContent = percentage + "%";
+            }
+
+            function loadTasks() {
+                tasksData.forEach(taskData => renderTask(taskData));
+                updateStats();
+            }
+
+            function saveTasks() {
+                tasksData = [];
+                document.querySelectorAll(".todo").forEach(todoDiv => {
+                    tasksData.push({
+                        taskTitle: todoDiv.dataset.taskTitle,
+                        startDate: todoDiv.dataset.startDate,
+                        dueDate: todoDiv.dataset.dueDate,
+                        reminderDate: todoDiv.dataset.reminderDate,
+                        priority: todoDiv.dataset.priority,
+                        stage: todoDiv.dataset.stage,
+                        completed: todoDiv.classList.contains("completed"),
+                        notes: todoDiv.dataset.notes || "",
+                        subtasks: Array.from(todoDiv.querySelectorAll(".subtask-item")).map(item => ({
+                            title: item.dataset.title,
+                            status: item.classList.contains("completed") ? "completed" : "pending",
+                            date: item.dataset.date || ""
+                        }))
+                    });
+                });
+            }
+
+            function renderTask(taskData) {
+                const todoDiv = document.createElement("div");
+                todoDiv.classList.add("todo");
+                if (taskData.completed) todoDiv.classList.add("completed");
+
+                todoDiv.dataset.priority = taskData.priority.toLowerCase();
+                todoDiv.dataset.taskTitle = taskData.taskTitle;
+                todoDiv.dataset.startDate = taskData.startDate;
+                todoDiv.dataset.dueDate = taskData.dueDate;
+                todoDiv.dataset.stage = taskData.stage;
+                if (taskData.reminderDate) todoDiv.dataset.reminderDate = taskData.reminderDate;
+                if (taskData.notes) todoDiv.dataset.notes = taskData.notes;
+
+                const newTask = document.createElement("li");
+                newTask.classList.add("todo-item");
+                newTask.innerHTML = `
+                    <div class="task-content">
+                        <div class="task-header">
+                            <h5 class="task-title">${taskData.taskTitle}</h5>
+                            <div class="d-flex gap-2">
+                                <span class="badge ${taskData.priority.toLowerCase()}-priority">${taskData.priority}</span>
+                                <span class="badge" style="background-color: var(--text-secondary);">${taskData.stage}</span>
+                            </div>
+                        </div>
+                        <div class="task-dates">
+                            <i class="far fa-calendar-alt me-1"></i>
+                            ${taskData.startDate} → ${taskData.dueDate}
+                        </div>
+                        ${taskData.subtasks?.length > 0 ? `
+                            <div class="subtasks-section">
+                                <small class="d-block mb-2"><strong>Subtasks:</strong></small>
+                                <ul class="subtasks-list">
+                                    ${taskData.subtasks.map(st => `
+                                        <li class="subtask-item ${st.status === 'completed' ? 'completed' : ''}" data-title="${st.title}" data-date="${st.date || ''}">
+                                            <i class="fas fa-circle me-2" style="font-size: 0.4rem;"></i>${st.title}
+                                            ${st.date ? `<small class="ms-2">(${st.date})</small>` : ''}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        ${taskData.notes ? `
+                            <details class="notes-section">
+                                <summary><small><i class="fas fa-sticky-note me-1"></i>View Notes</small></summary>
+                                <p class="notes-text">${taskData.notes}</p>
+                            </details>
+                        ` : ''}
+                    </div>
+                `;
+
+                todoDiv.appendChild(newTask);
+
+                const completedBtn = document.createElement("button");
+                completedBtn.innerHTML = '<i class="fas fa-check"></i>';
+                completedBtn.classList.add("complete-btn");
+                completedBtn.title = "Mark as complete";
+                completedBtn.onclick = () => {
+                    todoDiv.classList.toggle("completed");
+                    window.updateStats();
+                    saveTasks();
+                };
+                todoDiv.appendChild(completedBtn);
+
+                const trashBtn = document.createElement("button");
+                trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                trashBtn.classList.add("trash-btn");
+                trashBtn.title = "Delete task";
+                trashBtn.onclick = () => {
+                    if (confirm("Delete this task?")) {
+                        todoDiv.remove();
+                        window.updateStats();
+                        saveTasks();
+                    }
+                };
+                todoDiv.appendChild(trashBtn);
+
+                todoList.appendChild(todoDiv);
+            }
+
+            // Add Subtask
+            addSubtaskBtn.addEventListener("click", function() {
+                const row = document.createElement("div");
+                row.className = "subtask-row d-flex gap-2 align-items-center mb-2";
+                row.innerHTML = `
+                    <input type="text" name="subtaskTitle[]" placeholder="Subtask title" class="form-control">
+                    <select name="subtaskStatus[]" class="form-select">
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <input type="date" name="subtaskDate[]" class="form-control">
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-subtask">×</button>
+                `;
+                row.querySelector(".remove-subtask").addEventListener("click", () => row.remove());
+                subtaskList.appendChild(row);
+            });
+
+            // Submit Form
+            taskForm.addEventListener("submit", function(e) {
+                e.preventDefault();
+                
+                const taskTitle = document.getElementById("taskTitle").value.trim();
+                if (!taskTitle) {
+                    alert("Please enter a task title!");
+                    return;
+                }
+
+                const taskData = {
+                    taskTitle,
+                    startDate: document.getElementById("startDate").value || new Date().toISOString().split('T')[0],
+                    dueDate: document.getElementById("dueDate").value || new Date().toISOString().split('T')[0],
+                    priority: document.getElementById("priorityInput").value,
+                    stage: document.getElementById("stageSelect").value,
+                    completed: false,
+                    notes: document.getElementById("taskNotes").value.trim(),
+                    reminderDate: document.getElementById('deadlineTime').value || null,
+                    subtasks: Array.from(subtaskList.querySelectorAll(".subtask-row")).map(row => ({
+                        title: row.querySelector('input[name="subtaskTitle[]"]').value.trim(),
+                        status: row.querySelector('select[name="subtaskStatus[]"]').value,
+                        date: row.querySelector('input[name="subtaskDate[]"]').value
+                    })).filter(st => st.title)
+                };
+
+                renderTask(taskData);
+                window.updateStats();
+                saveTasks();
+                
+                taskForm.reset();
+                subtaskList.innerHTML = "";
+                
+                const taskModalInstance = bootstrap.Modal.getInstance(document.getElementById('taskModal'));
+                if (taskModalInstance) {
+                    taskModalInstance.hide();
+                }
+                
+                alert("Task added successfully!");
+            });
+
+            function loadTasks() {
+                tasksData.forEach(taskData => renderTask(taskData));
+                window.updateStats();
+            }
+
+            // Timeline Modal
+            const timelineModal = document.getElementById('timelineModal');
+            let fpInstance = null;
+
+            timelineModal.addEventListener('shown.bs.modal', () => {
+                if (fpInstance) fpInstance.destroy();
+                
+                const calDiv = document.getElementById('calendar');
+                calDiv.innerHTML = '<input type="text" id="flatpickr-input" style="display:none;">';
+                
+                fpInstance = flatpickr("#flatpickr-input", {
+                    inline: true,
+                    mode: "range",
+                    clickOpens: false,
+                    allowInput: false,
+                    disableMobile: true,
+                    defaultDate: new Date(),
+                    appendTo: calDiv
+                });
+
+                const firstTask = document.querySelector('.todo');
+                const notice = document.getElementById('calendarNotice');
+                
+                if (!firstTask) {
+                    notice.textContent = 'No tasks found. Create a task to see the timeline!';
+                } else {
+                    notice.textContent = `Displaying: "${firstTask.dataset.taskTitle}"`;
+                }
+            });
+
+            loadTasks();
+        });
     </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-      </script>
-<script>
-// ===== Session Check: Redirect to login if not logged in =====
-(function checkAuth() {
-  const loggedInUser = localStorage.getItem("loggedInUser");
-  if (!loggedInUser) {
-    window.location.href = "login.html";
-  }
-})();
-
-// ===== Logout Function: Clear session and redirect =====
-function logout() {
-  // Clear the logged-in user from localStorage
-  localStorage.removeItem("loggedInUser");
-  
-  // Redirect to login page
-  window.location.href = "login.html";
-}
-
-window.onload = function() {
-  const modal = document.getElementById("welcomeModal");
-  const closeBtn = document.getElementById("closeWelcome");
-
-  // Get the logged-in username from localStorage
-  const username = localStorage.getItem("loggedInUser") || "User";
-  document.getElementById("userName").textContent = username;
-
-  // Show the modal
-  modal.style.display = "flex";
-
-  // Close modal when clicking the button
-  closeBtn.onclick = function() {
-    modal.style.display = "none";
-  };
-
-  // Close welcome modal when clicking outside
-  window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-};
-</script>
-
-<script>
-function updateProgressBar() {
-  const totalTasks = document.getElementById("state1").textContent || 0;
-  const completedTasks = document.getElementById("state3").textContent || 0;
-
-  let percentage = 0;
-  if (totalTasks > 0) {
-    percentage = Math.round((completedTasks / totalTasks) * 100);
-  }
-
-  const progressBar = document.getElementById("taskProgressBar");
-  progressBar.style.width = percentage + "%";
-  progressBar.setAttribute("aria-valuenow", percentage);
-  progressBar.textContent = percentage + "%";
-}
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  // === MODAL HANDLING ===
-  const taskModal = document.getElementById("taskModal");
-  const openTaskBtn = document.getElementById("myBtn");
-  const closeTaskModalBtn = taskModal ? taskModal.querySelector(".btn-close") : null;
-
-  console.log("Task modal found:", !!taskModal);
-  console.log("Open button found:", !!openTaskBtn);
-
-  // Open modal
-  if (openTaskBtn && taskModal) {
-    openTaskBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log("Opening modal");
-      taskModal.style.display = "block";
-      setTimeout(() => document.getElementById("taskTitle")?.focus(), 100);
-    });
-  }
-
-  // Close modal
-  function closeModal() {
-    if (taskModal) {
-      taskModal.style.display = "none";
-    }
-  }
-
-  if (closeTaskModalBtn) {
-    closeTaskModalBtn.addEventListener("click", closeModal);
-  }
-
-  document.addEventListener("click", function(event) {
-    if (event.target === taskModal) closeModal();
-  });
-
-  // === TASK FORM HANDLING ===
-  const addSubtaskBtn = document.getElementById("addSubtaskBtn");
-  const subtaskList = document.getElementById("subtask-list");
-  const taskForm = document.getElementById("taskForm");
-  const todoList = document.querySelector(".todo-list");
-  const state1 = document.getElementById("state1");
-  const state2 = document.getElementById("state2");
-  const state3 = document.getElementById("state3");
-  const emptyMessage = document.getElementById("emptyMessage");
-
-  const username = localStorage.getItem("loggedInUser") || "User";
-  const storageKey = "tasks_" + username;
-
-  function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem(storageKey) || "[]");
-    tasks.forEach(taskData => renderTask(taskData));
-    updateStats();
-  }
-
-  function saveTasks() {
-    const tasks = [];
-    document.querySelectorAll(".todo").forEach(todoDiv => {
-      tasks.push({
-        taskTitle: todoDiv.dataset.taskTitle,
-        startDate: todoDiv.dataset.startDate,
-        dueDate: todoDiv.dataset.dueDate,
-        reminderDate: todoDiv.dataset.reminderDate,
-        priority: todoDiv.querySelector(".badge").textContent,
-        stage: todoDiv.querySelectorAll(".badge")[1]?.textContent || "pending",
-        completed: todoDiv.classList.contains("completed"),
-        notes: todoDiv.dataset.notes || "",
-        subtasks: Array.from(todoDiv.querySelectorAll(".subtask-item")).map(item => ({
-          title: item.textContent.trim(),
-          status: item.classList.contains("completed") ? "completed" : "pending",
-          date: item.querySelector("small")?.textContent.replace(/[()]/g, "") || ""
-        }))
-      });
-    });
-    localStorage.setItem(storageKey, JSON.stringify(tasks));
-  }
-
-  function renderTask(taskData) {
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo");
-    if (taskData.completed) todoDiv.classList.add("completed");
-
-    const newTask = document.createElement("li");
-    newTask.classList.add("todo-item");
-    newTask.innerHTML = `
-      <div class="task-content p-3">
-        <div class="task-header mb-2">
-          <h5 class="task-title mb-1">${taskData.taskTitle}</h5>
-          <span class="badge ${taskData.priority.toLowerCase()}-priority">${taskData.priority}</span>
-          <span class="badge ${taskData.stage.toLowerCase()}-stage">${taskData.stage}</span>
-        </div>
-        <div class="task-dates mb-2">
-          <small class="text-muted">
-            <i class="far fa-calendar-alt"></i> ${taskData.startDate} → ${taskData.dueDate}
-          </small>
-        </div>
-        ${taskData.subtasks?.length > 0 ? `
-          <div class="subtasks-section">
-            <small class="text-muted d-block mb-2">Subtasks:</small>
-            <ul class="subtasks-list">
-              ${taskData.subtasks.map(st => `
-                <li class="subtask-item ${st.status === 'completed' ? 'completed' : ''}">
-                  <i class="fas fa-circle-notch"></i> ${st.title}
-                  <small>${st.date ? `(${st.date})` : ''}</small>
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-        ` : ''}
-        ${taskData.notes ? `
-          <details class="notes-section">
-            <summary><small class="text-muted">Notes</small></summary>
-            <p class="notes-text">${taskData.notes}</p>
-          </details>
-        ` : ''}
-      </div>`;
-
-    todoDiv.appendChild(newTask);
-    todoDiv.dataset.taskTitle = taskData.taskTitle;
-    todoDiv.dataset.startDate = taskData.startDate;
-    todoDiv.dataset.dueDate = taskData.dueDate;
-    if (taskData.reminderDate) todoDiv.dataset.reminderDate = taskData.reminderDate;
-    if (taskData.notes) todoDiv.dataset.notes = taskData.notes;
-
-    const completedBtn = document.createElement("button");
-    completedBtn.innerHTML = '<i class="fas fa-check"></i>';
-    completedBtn.classList.add("complete-btn");
-    completedBtn.onclick = () => {
-      todoDiv.classList.toggle("completed");
-      updateStats();
-      saveTasks();
-    };
-    todoDiv.appendChild(completedBtn);
-
-    const trashBtn = document.createElement("button");
-    trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
-    trashBtn.classList.add("trash-btn");
-    trashBtn.onclick = () => {
-      if (confirm("Delete this task?")) {
-        todoDiv.remove();
-        updateStats();
-        saveTasks();
-      }
-    };
-    todoDiv.appendChild(trashBtn);
-
-    todoList.appendChild(todoDiv);
-  }
-
-  addSubtaskBtn?.addEventListener("click", function () {
-    const row = document.createElement("div");
-    row.className = "d-flex gap-2 align-items-center subtask-row";
-    row.innerHTML = `
-      <input type="text" name="subtaskTitle[]" placeholder="Subtask title" class="form-control">
-      <select name="subtaskStatus[]" class="form-select">
-        <option value="pending">Pending</option>
-        <option value="partially-completed">Partially Completed</option>
-      </select>
-      <input type="date" name="subtaskDate[]" class="form-control">
-      <button type="button" class="btn btn-outline-danger btn-sm remove-subtask">&times;</button>
-    `;
-    row.querySelector(".remove-subtask").addEventListener("click", () => row.remove());
-    subtaskList.appendChild(row);
-  });
-
-  taskForm?.addEventListener("submit", function (e) {
-    e.preventDefault();
-    console.log("Form submitted!");
-
-    const taskTitle = document.getElementById("taskTitle").value.trim();
-    if (!taskTitle) {
-      alert("Please enter a task title!");
-      return;
-    }
-
-    const taskData = {
-      taskTitle,
-      startDate: document.getElementById("startDate").value,
-      dueDate: document.getElementById("dueDate").value,
-      priority: document.getElementById("priorityInput").value,
-      stage: document.getElementById("stageSelect").value,
-      completed: false,
-      notes: document.getElementById("taskNotes").value.trim(),
-      reminderDate: document.getElementById('deadlineTime').value.split('T')[0] || null,
-      subtasks: Array.from(subtaskList.querySelectorAll(".subtask-row")).map(row => ({
-        title: row.querySelector('input[name="subtaskTitle[]"]').value.trim(),
-        status: row.querySelector('select[name="subtaskStatus[]"]').value,
-        date: row.querySelector('input[name="subtaskDate[]"]').value
-      })).filter(st => st.title)
-    };
-
-    renderTask(taskData);
-    updateStats();
-    saveTasks();
-
-    taskForm.reset();
-    subtaskList.innerHTML = "";
-    closeModal();
-  });
-
-  function updateStats() {
-    const total = document.querySelectorAll(".todo").length;
-    const completed = document.querySelectorAll(".todo.completed").length;
-    state1.textContent = total;
-    state2.textContent = total - completed;
-    state3.textContent = completed;
-    emptyMessage.style.display = total === 0 ? "block" : "none";
-    updateProgressBar();
-  }
-
-  loadTasks();
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-function openAnalysisModal() {
-  document.getElementById("analysisModal").style.display = "flex";
-
-  const totalTasks = document.querySelectorAll(".todo").length;
-  const completedTasks = document.querySelectorAll(".todo.completed").length;
-  const remainingTasks = totalTasks - completedTasks;
-
-  // Calculate Productivity Score (percentage)
-  const productivity = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-  document.getElementById("productivityScore").innerText = 
-      `Productivity Score: ${productivity}%`;
-
-  // Destroy old chart if exists (avoid duplicate charts)
-  if (window.productivityChartInstance) {
-    window.productivityChartInstance.destroy();
-  }
-
-  // Create chart
-  const ctx = document.getElementById("productivityChart").getContext("2d");
-  window.productivityChartInstance = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["Completed", "Remaining"],
-      datasets: [{
-        data: [completedTasks, remainingTasks],
-        backgroundColor: ["#2ecc71", "#e74c3c"]
-      }]
-    },
-    options: { 
-      responsive: true, 
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false } // 🔥 Removes that green box + "Tasks"
-      }
-    }
-  });
-}
-
-function closeAnalysisModal() {
-  document.getElementById("analysisModal").style.display = "none";
-}
-</script> 
-
-<script>
-  // Ask for notification permission on page load
-  if ("Notification" in window) {
-    if (Notification.permission !== "granted" && Notification.permission !== "denied") {
-      Notification.requestPermission().then(permission => {
-        console.log("Notification permission:", permission);
-      });
-    }
-  }
-</script>
-
-  <!-- Bootstrap Bundle (includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Flatpickr -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById('timelineModal');
-  const notice = document.getElementById('calendarNotice');
-
-  let fpInstance = null;
-
-  // Initialize calendar once when modal opens
-  modal.addEventListener('shown.bs.modal', () => {
-    console.log("Modal opened");
-    
-    // Destroy old instance if exists
-    if (fpInstance) {
-      fpInstance.destroy();
-    }
-    
-    // Create new instance
-    const calDiv = document.getElementById('calendar');
-    calDiv.innerHTML = '<input type="text" id="flatpickr-input" style="display:none;">';
-    
-    fpInstance = flatpickr("#flatpickr-input", {
-      inline: true,
-      mode: "range",
-      clickOpens: false,
-      allowInput: false,
-      disableMobile: true,
-      defaultDate: new Date(),
-      appendTo: calDiv,
-      onReady: function(selectedDates, dateStr, instance) {
-        console.log("Flatpickr ready!");
-        setTimeout(() => {
-          loadAndDisplayTasks();
-        }, 200);
-      }
-    });
-  });
-
-  function loadAndDisplayTasks() {
-    // Get only the FIRST task in the list
-    const firstTask = document.querySelector('.todo');
-    
-    if (!firstTask) {
-      notice.textContent = 'No tasks found. Create a task with start and due dates!';
-      return;
-    }
-
-    const startDate = firstTask.dataset.startDate;
-    const dueDate = firstTask.dataset.dueDate;
-    const reminderDate = firstTask.dataset.reminderDate;
-    const taskTitle = firstTask.dataset.taskTitle;
-
-    console.log("First task data:", { taskTitle, startDate, dueDate, reminderDate });
-
-    if (!startDate || !dueDate) {
-      notice.textContent = 'First task has no dates. Please set start and due dates!';
-      return;
-    }
-
-    const task = {
-      title: taskTitle || 'Task',
-      start: startDate,
-      due: dueDate,
-      reminder: reminderDate || null
-    };
-
-    notice.textContent = `Displaying: "${task.title}"`;
-    updateCalendar(task);
-  }
-
-  function clearHighlights() {
-    const marked = document.querySelectorAll(
-      '.flatpickr-day.reminder-highlight, .flatpickr-day.badge-start, .flatpickr-day.badge-due, .flatpickr-day.in-range-custom'
-    );
-    marked.forEach(el => el.classList.remove('reminder-highlight','badge-start','badge-due','in-range-custom'));
-  }
-
-  function updateCalendar(task) {
-    clearHighlights();
-    
-    fpInstance.jumpToDate(new Date(task.start));
-
-    const tryHighlight = (attempts = 0) => {
-      const days = document.querySelectorAll('.flatpickr-day');
-      console.log(`Attempt ${attempts + 1}: Calendar days found:`, days.length);
-      
-      if (days.length === 0 && attempts < 10) {
-        setTimeout(() => tryHighlight(attempts + 1), 200);
-        return;
-      }
-      
-      if (days.length === 0) {
-        console.error("Calendar never rendered!");
-        return;
-      }
-      
-      console.log("Processing task:", task);
-
-      const startDate = new Date(task.start + "T00:00:00");
-      const dueDate = new Date(task.due + "T00:00:00");
-      const reminderDate = task.reminder ? new Date(task.reminder.split('T')[0] + "T00:00:00") : null;
-
-      days.forEach(cell => {
-        if (!cell.dateObj) return;
-        
-        const cellISO = cell.dateObj.toISOString().slice(0,10);
-        const cellDate = new Date(cellISO + "T00:00:00");
-
-        // Mark start date (BLUE)
-        if (cellISO === task.start) {
-          console.log("Marking START date:", cellISO);
-          cell.classList.add('badge-start');
-        }
-        
-        // Mark due date (GREEN)
-        else if (cellISO === task.due) {
-          console.log("Marking DUE date:", cellISO);
-          cell.classList.add('badge-due');
-        }
-        
-        // Mark reminder date (YELLOW) - only if not start/due
-        else if (task.reminder && cellISO === task.reminder.split('T')[0]) {
-          console.log("Marking REMINDER date:", cellISO);
-          cell.classList.add('reminder-highlight');
-        }
-        
-        // Shade the range between start and due (light blue)
-        else if (cellDate > startDate && cellDate < dueDate) {
-          cell.classList.add('in-range-custom');
-        }
-      });
-      
-      console.log("Start dates:", document.querySelectorAll('.badge-start').length);
-      console.log("Due dates:", document.querySelectorAll('.badge-due').length);
-      console.log("Reminder dates:", document.querySelectorAll('.reminder-highlight').length);
-    };
-    
-    tryHighlight();
-  }
-});
-    
-</script>
-
 </body>
 </html>
