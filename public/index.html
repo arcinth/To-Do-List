@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Create Account</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  
   <style>
+    /* All your CSS is now here */
     body {
       font-family: "Montserrat", sans-serif;
       background: linear-gradient(135deg, #4a8cb5 0%, #6a11cb 100%);
@@ -25,7 +29,8 @@
       animation: fadeIn 0.8s ease;
     }
 
-    .signup-container h2 {
+    /* Updated to h1 to match the HTML */
+    .signup-container h1 {
       margin-bottom: 1.5rem;
       color: #333;
       font-weight: 700;
@@ -96,21 +101,26 @@
   </style>
 </head>
 <body>
-  <div class="signup-container">
-    <h2>Create Account</h2>
-    <form id="signupForm">
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Enter your username" required />
 
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password" required />
+  <main>
+    <div class="signup-container">
+      <h1>Create Account</h1>
+      
+      <form id="signupForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required autocomplete="username" />
 
-      <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href="login.html">Login here</a></p>
-  </div>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required autocomplete="new-password" />
+
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </main>
 
   <script>
+    // All your JavaScript is now here
     document.getElementById("signupForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
